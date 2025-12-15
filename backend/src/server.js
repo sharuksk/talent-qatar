@@ -3,10 +3,20 @@ import { ENV } from './lib/env.js';
 import path from 'path';
 import { connect } from 'http2';
 import { connectDB } from './lib/db.js';
+import { inngest } from './lib/inngest.js';
+import {serve} from 'inngest/express';
 
 const app = express();
 
 const __dirname = path.resolve();
+
+//middlewares
+app.use(express.json());
+
+//client true means cookies are allowed from browser
+app.use(cors({origin: ENV.CLIENT_URL, credentials: true}));
+
+app.use('/api/inngest ', serve({client: inngest, functions}));
 
 app.get('/health', (req, res) => {
   res.status(200).json({"message": 'API is running!'});
