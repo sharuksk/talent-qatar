@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { SignedIn, SignedOut, SignInButton, UserButton, SignedOutButton } from '@clerk/clerk-react';
+import { SignedIn, SignedOut, SignInButton, UserButton, SignOutButton } from '@clerk/clerk-react';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -18,7 +18,7 @@ function App() {
           </ SignInButton>
         </SignedOut>
         <SignedIn>
-          <SignedOutButton />
+          <SignOutButton />
         </SignedIn>
         <UserButton/>
     </>
