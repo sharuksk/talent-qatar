@@ -9,7 +9,7 @@ if (!apiKey || !apiSecret) {
     process.exit(1);
 }
 
-export const chatClient = new StreamChat.getInstance(apiKey, apiSecret);
+export const chatClient = StreamChat.getInstance(apiKey, apiSecret);
 
 export const upsertStreamUser = async(userData) => {
     try {
