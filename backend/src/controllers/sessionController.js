@@ -106,6 +106,10 @@ export async function joinSession(req, res) {
         if (session.status !== 'active') {
             return res.status(400).json({ msg: "Cannot join a non-active session" });
         }
+
+        if (session.host.toString() !== userId.toString()) {
+            return res.status(400).json({ msg: "Host Cannot join their own session" });
+        }
         // check session is already full (limit 2)
         if (session.participant) {
             return res.status(400).json({ msg: "Session is already full" });
@@ -144,15 +148,16 @@ export async function endSession(req, res) {
         if (session.status === 'completed') {
             return res.status(400).json({ msg: "Session is already completed" });
         }
-        session.status = 'completed';
-        await session.save();
 
         //kill the chat and video call sessions
         const call = streamClient.video.call("default", session.callId);
         await call.delete({hard: true});
         const channel = chatClient.channel("messaging", session.callId);
         await channel.delete();
-        
+
+        session.status = 'completed';
+        await session.save();
+
         res.status(200).json({ msg: "Session ended successfully" });
     } catch (error) {
         res.status(500).json({ msg: "Server Error in ending session" });
