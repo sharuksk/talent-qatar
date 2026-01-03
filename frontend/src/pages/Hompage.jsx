@@ -3,7 +3,7 @@ import React from 'react'
 import { SignedIn, SignedOut, SignInButton, UserButton, SignOutButton } from '@clerk/clerk-react';
 import toast from 'react-hot-toast';
 
-function Hompage() {
+function Homepage() {
 
   return (
     <div>
@@ -24,4 +24,4 @@ function Hompage() {
   )
 }
 
-export default Hompage
+export default Homepage
