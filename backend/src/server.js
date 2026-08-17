@@ -10,6 +10,7 @@ import { inngest, functions } from "./lib/inngest.js";
 import { protectedRoute } from "./middleware/protectRoute.js";
 import chatRoutes from "./routes/chatRoutes.js";
 import sessionRoutes from "./routes/sessionRoutes.js";
+import paymentRoutes from "./routes/paymentRoutes.js";
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(clerkMiddleware()); // this add auth field for request object
 app.use("/api/inngest", serve({ client: inngest, functions }));
 app.use("/api/chat", chatRoutes);
 app.use("/api/sessions", sessionRoutes);
+app.use("/api/payment", paymentRoutes);
 
 app.get("/health", (req, res) => {
   res.status(200).json({ msg: "api is up and running" });
